@@ -21,11 +21,37 @@ function hook_login_forms() {
             }
         }, function(data) {
             if (data === "InvalidCredentials") {
-                error_show("form-login-error", "Login failed. Please check your username and password and try again.");
+                alert_show("form-login-error", "Login failed. Please check your username and password and try again.");
                 return;
             }
             alert(data);
         });
+    });
+    $("#form-register").submit(function(e) {
+        e.preventDefault();
+        var pw1 = $("#input-register-password").val();
+        var pw2 = $("#input-register-password2").val();
+        if (pw1 !== pw2) {
+            alert_show("form-register-error", "Entered passwords do not match.");
+        } else {
+            api_call("register", {username: $("#input-register-username").val(), password: $("#input-register-password").val()}, function(data) {
+                alert_show("form-register-success", "Registration successful. Now you can login.");
+                alert_hide("form-register-error");
+                $("#form-register").fadeOut(500);
+            }, function(data) {
+                if (data === "UsernameAlreadyTaken") {
+                    alert_show("form-register-error", "This username is already taken.");
+                    return;
+                } else if (data === "UsernameTooShort") {
+                    alert_show("form-register-error", "User name needs to be at least 5 characters long.");
+                    return;
+                } else if (data === "PasswordTooShort") {
+                    alert_show("form-register-error", "Password needs to be at least 5 characters long.");
+                    return;
+                }
+                alert(data);
+            });
+        }
     });
 }
 
@@ -92,9 +118,13 @@ function api_call(query_method, params, ok_fn, error_fn) {
     }, "json");
 }
 
-function error_show(id, text) {
+function alert_hide(id) {
+    $("div#" + id).fadeOut(500);
+}
+
+function alert_show(id, text) {
     $("div#" + id + " .error-text").html(text);
-    $("div#" + id).show();
+    $("div#" + id).fadeIn(500);
 }
 
 function screen_show(name) {

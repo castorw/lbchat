@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="container" style="width: 980px; margin-top: 15px;">
+        <div class="container" style="max-width: 980px; margin-top: 15px;">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -41,10 +41,10 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <h1><span class="glyphicon glyphicon-lock"></span> Sign in</h1>
+                            <div class="alert alert-danger" role="alert" id="form-login-error" style="display: none">
+                                <strong>Shit!</strong> <span class="error-text"></span>
+                            </div>
                             <form class="form-horizontal" role="form" id="form-login">
-                                <div class="alert alert-danger fade in" role="alert" id="form-login-error" style="display: none">
-                                    <strong>Shit!</strong> <span class="error-text"></span>
-                                </div>
                                 <div class="form-group">
                                     <label for="input-login-username" class="col-sm-2 control-label">Username</label>
                                     <div class="col-sm-10">
@@ -66,6 +66,12 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-left: 1px #cccccc solid;">
                             <h1><span class="glyphicon glyphicon-asterisk"></span> Register</h1>
+                            <div class="alert alert-danger" role="alert" id="form-register-error" style="display: none">
+                                <strong>Shit!</strong> <span class="error-text"></span>
+                            </div>
+                            <div class="alert alert-success" role="alert" id="form-register-success" style="display: none">
+                                <strong>Success!</strong> <span class="error-text"></span>
+                            </div>
                             <form class="form-horizontal" role="form" id="form-register">
                                 <div class="form-group">
                                     <label for="input-register-username" class="col-sm-4 control-label">Username</label>

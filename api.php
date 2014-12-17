@@ -86,13 +86,21 @@ switch ($action) {
         }
     case "register": {
             $username = trim(filter_input(INPUT_POST, "username"));
-            $password = sha1(filter_input(INPUT_POST, "password"));
+            $password = filter_input(INPUT_POST, "password");
+            $password_hash = sha1($password);
+
+            if (strlen($username) < 5) {
+                respond(false, "UsernameTooShort");
+            } else if (strlen($password) < 5) {
+                respond(false, "PasswordTooShort");
+            }
+
             $check_query = $mysqli->query("SELECT COUNT(*) as `count` FROM `lbchat_user` WHERE `username` = \"$username\"");
             $check_row = $check_query->fetch_array(MYSQL_ASSOC);
             if ($check_row["count"] > 0) {
                 respond(false, "UsernameAlreadyTaken");
             } else {
-                $mysqli->query("INSERT INTO `lbchat_user` (`username`, `password`) VALUES (\"$username\", \"$password\")");
+                $mysqli->query("INSERT INTO `lbchat_user` (`username`, `password`) VALUES (\"$username\", \"$password_hash\")");
                 respond(true, array("Id" => mysqli_insert_id($mysqli)));
             }
         }
