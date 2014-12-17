@@ -20,10 +20,7 @@ function respond($status, $response) {
 
 error_reporting(E_ALL);
 ini_set("display_errors", "1");
-$db_host = "localhost";
-$db_user = "lbchat_dev";
-$db_password = "Le53g58GCs";
-$db_name = "lbchat_dev";
+require_once "config.php";
 
 $mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);
 
