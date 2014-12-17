@@ -48,7 +48,7 @@ function api_present_loop() {
 }
 
 function api_call(query_method, params, ok_fn, error_fn) {
-    $.post("/api.php?_q=" + query_method + ((session_id === null) ? "" : "&_s=" + session_id), params, function(data) {
+    $.post("api.php?_q=" + query_method + ((session_id === null) ? "" : "&_s=" + session_id), params, function(data) {
         if (data.Status === false) {
             error_fn(data.Error);
         } else {
